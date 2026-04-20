@@ -121,11 +121,6 @@ def main():
         filename = f"{p['date'].strftime('%Y-%m-%d')}-{p['slug']}.md"
         filepath = os.path.join(cat_dir, filename)
 
-        # Skip if already exists (avoid overwriting WP posts with same slug)
-        if os.path.exists(filepath):
-            filename = f"{p['date'].strftime('%Y-%m-%d')}-blogger-{p['slug']}.md"
-            filepath = os.path.join(cat_dir, filename)
-
         title_yaml = escape_yaml(p['title'])
         cats_yaml = f'["{p["category"]}"]'
         tags_yaml = '[' + ', '.join(f'"{t}"' for t in p['tags']) + ']'
