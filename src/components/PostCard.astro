@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  slug: string;
+  categories: string[];
+  excerpt?: string;
+  heroImage?: string | null;
+}
+
+const { title, date, slug, categories, excerpt, heroImage } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'
+});
+
+const catColors: Record<string, string> = {
+  'wake-island': '#e8a020',
+  'sota': '#3aaa6a',
+  'general-ham': '#5b8ecf',
+  'uncategorized': '#4a5668',
+};
+
+function getCatColor(cat: string) {
+  return catColors[cat] || catColors['uncategorized'];
+}
+---
+
+<article style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; overflow: hidden; transition: border-color 0.2s;"
+  onmouseover="this.style.borderColor='#3a4a60'" onmouseout="this.style.borderColor='#2a3347'">
+  {heroImage && (
+    <a href={`/blog/${slug}`}>
+      <img src={heroImage} alt={title} loading="lazy"
+        style="width: 100%; height: 180px; object-fit: cover; display: block;" />
+    </a>
+  )}
+  <div style="padding: 1.25rem 1.5rem 1.5rem;">
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+      {categories.map(cat => (
+        <span style={`font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: ${getCatColor(cat)}; font-family: monospace;`}>
+          {cat.replace(/-/g, ' ')}
+        </span>
+      ))}
+    </div>
+    <h2 style="margin: 0 0 0.5rem; font-size: 1.05rem; font-weight: 600; line-height: 1.35; color: #f0f4ff;">
+      <a href={`/blog/${slug}`} style="text-decoration: none; color: inherit;"
+        onmouseover="this.style.color='#e8a020'" onmouseout="this.style.color='inherit'">
+        {title}
+      </a>
+    </h2>
+    <time style="font-size: 0.8rem; color: #4a5668; font-family: monospace;">{formattedDate}</time>
+    {excerpt && (
+      <p style="margin: 0.75rem 0 0; font-size: 0.9rem; color: #7a8ba0; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+        {excerpt}
+      </p>
+    )}
+  </div>
+</article>

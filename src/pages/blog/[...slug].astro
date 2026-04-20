@@ -1,0 +1,92 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+});
+
+const catColors: Record<string, string> = {
+  'wake-island': '#e8a020',
+  'sota': '#3aaa6a',
+  'general-ham': '#5b8ecf',
+  'uncategorized': '#4a5668',
+};
+---
+
+<Base
+  title={post.data.title}
+  description={post.data.excerpt || post.data.title}
+  image={post.data.heroImage || undefined}
+>
+  <article style="max-width: 800px; margin: 0 auto; padding: 3rem 1.5rem;">
+    <!-- Breadcrumb -->
+    <nav style="margin-bottom: 2rem; font-size: 0.8rem; font-family: monospace; color: #4a5668;">
+      <a href="/" style="color: #4a5668; text-decoration: none;">KH7AL</a>
+      <span style="margin: 0 0.5rem;">›</span>
+      <a href="/blog" style="color: #4a5668; text-decoration: none;">Log</a>
+      <span style="margin: 0 0.5rem;">›</span>
+      <span style="color: #7a8ba0;">{post.data.title}</span>
+    </nav>
+
+    <!-- Category badges -->
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+      {post.data.categories.map((cat: string) => (
+        <span style={`font-size: 0.7rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: ${catColors[cat] || '#4a5668'}; font-family: monospace;`}>
+          {cat.replace(/-/g, ' ')}
+        </span>
+      ))}
+    </div>
+
+    <h1 style="font-size: 2rem; font-weight: 700; color: #f0f4ff; line-height: 1.25; margin: 0 0 1rem;">
+      {post.data.title}
+    </h1>
+
+    <time style="font-family: monospace; font-size: 0.82rem; color: #4a5668; display: block; margin-bottom: 2.5rem;">
+      {formattedDate}
+    </time>
+
+    {post.data.heroImage && (
+      <img
+        src={post.data.heroImage}
+        alt={post.data.title}
+        style="width: 100%; border-radius: 8px; border: 1px solid #2a3347; margin-bottom: 2.5rem;"
+      />
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <!-- Tags -->
+    {post.data.tags && post.data.tags.length > 0 && (
+      <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #2a3347;">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          {post.data.tags.map((tag: string) => (
+            <span style="font-size: 0.75rem; background: #1e2635; color: #7a8ba0; padding: 0.25rem 0.6rem; border-radius: 4px; border: 1px solid #2a3347;">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Back link -->
+    <div style="margin-top: 3rem;">
+      <a href="/blog" style="font-size: 0.85rem; color: #e8a020; text-decoration: none; font-family: monospace;">
+        ← Back to log
+      </a>
+    </div>
+  </article>
+</Base>

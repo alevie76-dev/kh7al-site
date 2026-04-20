@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+
+// ─── UPDATE THIS SECTION TO CHANGE STATUS ────────────────────────────────────
+const STATUS = {
+  active: false,                        // true = currently QRV
+  callsign: 'KH7AL',
+  location: 'Helena, MT (home QTH)',
+  grid: 'DN46',
+  bands: ['20m', '40m'],
+  modes: ['CW', 'FT8'],
+  rig: 'Icom IC-7300',
+  antenna: 'Wire dipole',
+  qrz: 'https://www.qrz.com/db/KH7AL',
+  lastUpdated: '2025-12-23',
+  note: 'Back home from Wake Island. Operating casually from home QTH. Available for skeds — reach out via QRZ.',
+};
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<Base title="On The Air" description="Current operating status for KH7AL — frequency, bands, mode, and QTH.">
+  <div style="max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem;">
+    <h1 style="font-size: 1.75rem; font-weight: 700; color: #f0f4ff; margin: 0 0 0.5rem;">On The Air</h1>
+    <p style="color: #7a8ba0; font-size: 0.9rem; margin: 0 0 2.5rem;">Current operating status. Last updated: <code style="font-size: 0.85em; background: #1e2635; padding: 0.1em 0.4em; border-radius: 3px; color: #7a8ba0;">{STATUS.lastUpdated}</code></p>
+
+    <!-- Status indicator -->
+    <div style={`display: flex; align-items: center; gap: 1rem; background: #161b24; border: 1px solid ${STATUS.active ? '#3aaa6a' : '#2a3347'}; border-radius: 10px; padding: 1.5rem 2rem; margin-bottom: 2rem;`}>
+      <div style={`width: 14px; height: 14px; border-radius: 50%; background: ${STATUS.active ? '#3aaa6a' : '#4a5668'}; flex-shrink: 0; ${STATUS.active ? 'box-shadow: 0 0 12px #3aaa6a;' : ''}`}></div>
+      <div>
+        <div style={`font-size: 1.1rem; font-weight: 700; font-family: monospace; color: ${STATUS.active ? '#3aaa6a' : '#7a8ba0'};`}>
+          {STATUS.active ? 'QRV — Currently On The Air' : 'QRT — Not Currently Active'}
+        </div>
+        <div style="font-size: 0.85rem; color: #7a8ba0; margin-top: 0.2rem;">{STATUS.callsign} · {STATUS.location}</div>
+      </div>
+    </div>
+
+    <!-- Details table -->
+    <div style="background: #161b24; border: 1px solid #2a3347; border-radius: 8px; overflow: hidden; margin-bottom: 2rem;">
+      {[
+        ['Callsign', STATUS.callsign],
+        ['QTH', STATUS.location],
+        ['Grid', STATUS.grid],
+        ['Bands', STATUS.bands.join(', ')],
+        ['Modes', STATUS.modes.join(', ')],
+        ['Rig', STATUS.rig],
+        ['Antenna', STATUS.antenna],
+      ].map(([label, value], i) => (
+        <div style={`display: flex; padding: 0.75rem 1.25rem; ${i > 0 ? 'border-top: 1px solid #2a3347;' : ''}`}>
+          <span style="width: 120px; flex-shrink: 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #4a5668; font-family: monospace; padding-top: 1px;">{label}</span>
+          <span style="font-size: 0.95rem; color: #d4dbe8; font-family: monospace;">{value}</span>
+        </div>
+      ))}
+    </div>
+
+    {STATUS.note && (
+      <div style="background: #161b24; border: 1px solid #2a3347; border-left: 3px solid #e8a020; border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 2rem;">
+        <p style="margin: 0; color: #7a8ba0; font-size: 0.9rem; line-height: 1.65;">{STATUS.note}</p>
+      </div>
+    )}
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href={STATUS.qrz} target="_blank" rel="noopener noreferrer"
+        style="background: #e8a020; color: #0e1117; padding: 0.55rem 1.25rem; border-radius: 5px; font-weight: 600; font-size: 0.875rem; text-decoration: none;">
+        View QRZ Profile
+      </a>
+      <a href="/blog"
+        style="background: transparent; color: #e8a020; border: 1px solid #e8a020; padding: 0.55rem 1.25rem; border-radius: 5px; font-weight: 600; font-size: 0.875rem; text-decoration: none;">
+        Read the Log
+      </a>
+    </div>
+
+    <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #2a3347; font-size: 0.8rem; color: #4a5668; line-height: 1.6;">
+      <strong style="color: #7a8ba0;">To update this page:</strong> Edit <code style="background: #1e2635; padding: 0.1em 0.4em; border-radius: 3px;">src/pages/on-the-air.astro</code> and change the <code style="background: #1e2635; padding: 0.1em 0.4em; border-radius: 3px;">STATUS</code> object at the top of the file.
+    </div>
+  </div>
+</Base>

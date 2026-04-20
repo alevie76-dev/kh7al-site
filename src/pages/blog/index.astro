@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const sorted = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Base title="Log" description="All posts from KH7AL — ham radio adventures, SOTA activations, Wake Island operation logs, and more.">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem;">
+    <div style="margin-bottom: 2.5rem;">
+      <h1 style="font-size: 1.75rem; font-weight: 700; color: #f0f4ff; margin: 0 0 0.5rem;">Log</h1>
+      <p style="color: #7a8ba0; margin: 0; font-size: 0.9rem;">{sorted.length} entries</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;">
+      {sorted.map(post => (
+        <PostCard
+          title={post.data.title}
+          date={post.data.date}
+          slug={post.id}
+          categories={post.data.categories}
+          excerpt={post.data.excerpt || ''}
+          heroImage={post.data.heroImage}
+        />
+      ))}
+    </div>
+  </div>
+</Base>

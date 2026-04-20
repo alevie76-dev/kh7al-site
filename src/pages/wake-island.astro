@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const wakePosts = allPosts
+  .filter(p => p.data.categories.includes('wake-island'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Base title="Wake Island (KH9)" description="KH7AL/KH9 — operating ham radio from Wake Island, one of the most sought-after DXCC entities. Over 20,000 contacts on HF.">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem;">
+
+    <!-- Header -->
+    <div style="background: linear-gradient(135deg, #161b24 0%, #1a2234 100%); border: 1px solid #2a3347; border-radius: 10px; padding: 2.5rem 3rem; margin-bottom: 3rem; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 1rem; right: 1.5rem; font-family: monospace; font-size: 0.75rem; color: #4a5668; letter-spacing: 0.1em;">
+        DXCC ENTITY · OC-053
+      </div>
+      <div style="font-family: monospace; font-size: 0.8rem; color: #e8a020; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">
+        KH7AL / KH9
+      </div>
+      <h1 style="font-size: 2rem; font-weight: 700; color: #f0f4ff; margin: 0 0 1rem; line-height: 1.2;">
+        Wake Island Operation
+      </h1>
+      <p style="color: #7a8ba0; max-width: 60ch; line-height: 1.75; margin: 0 0 1.5rem; font-size: 0.95rem;">
+        From late 2024 through mid-2025, I was assigned to Wake Island (KH9) as KH7AL/KH9. What started as a personal ham radio challenge became one of the most meaningful operating experiences of my life — over 20,000 contacts, FT8 Super Fox/Hound operations, CW pileups, and a front-row seat to one of the world's most remote atolls.
+      </p>
+      <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+        <div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: #e8a020; font-family: monospace;">20,000+</div>
+          <div style="font-size: 0.75rem; color: #7a8ba0; text-transform: uppercase; letter-spacing: 0.06em;">Total QSOs</div>
+        </div>
+        <div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: #3aaa6a; font-family: monospace;">~100</div>
+          <div style="font-size: 0.75rem; color: #7a8ba0; text-transform: uppercase; letter-spacing: 0.06em;">DXCC entities worked</div>
+        </div>
+        <div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: #5b8ecf; font-family: monospace;">KH9</div>
+          <div style="font-size: 0.75rem; color: #7a8ba0; text-transform: uppercase; letter-spacing: 0.06em;">Rare DXCC Entity</div>
+        </div>
+        <div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: #d4dbe8; font-family: monospace;">{wakePosts.length}</div>
+          <div style="font-size: 0.75rem; color: #7a8ba0; text-transform: uppercase; letter-spacing: 0.06em;">Log entries</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Posts grid -->
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem;">
+      <h2 style="font-size: 1rem; font-weight: 600; color: #f0f4ff; margin: 0; text-transform: uppercase; letter-spacing: 0.06em;">Operation Log</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;">
+      {wakePosts.map(post => (
+        <PostCard
+          title={post.data.title}
+          date={post.data.date}
+          slug={post.id}
+          categories={post.data.categories}
+          excerpt={post.data.excerpt || ''}
+          heroImage={post.data.heroImage}
+        />
+      ))}
+    </div>
+  </div>
+</Base>

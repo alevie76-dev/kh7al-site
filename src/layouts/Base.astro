@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = 'Ham radio adventures, SOTA activations, and the KH7AL/KH9 Wake Island operation.', image } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | KH7AL</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={`${title} | KH7AL`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body style="background-color: #0e1117;">
+    <header style="background-color: #161b24; border-bottom: 1px solid #2a3347;">
+      <nav style="max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 60px;">
+        <a href="/" style="font-size: 1.1rem; font-weight: 700; color: #e8a020; text-decoration: none; letter-spacing: 0.05em; font-family: monospace;">
+          KH7AL
+        </a>
+        <div style="display: flex; gap: 1.5rem; align-items: center;">
+          <a href="/blog" style="color: #7a8ba0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.15s;"
+            onmouseover="this.style.color='#d4dbe8'" onmouseout="this.style.color='#7a8ba0'">Log</a>
+          <a href="/sota" style="color: #7a8ba0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.15s;"
+            onmouseover="this.style.color='#d4dbe8'" onmouseout="this.style.color='#7a8ba0'">SOTA</a>
+          <a href="/wake-island" style="color: #7a8ba0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.15s;"
+            onmouseover="this.style.color='#d4dbe8'" onmouseout="this.style.color='#7a8ba0'">Wake Island</a>
+          <a href="/on-the-air" style="color: #7a8ba0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.15s;"
+            onmouseover="this.style.color='#d4dbe8'" onmouseout="this.style.color='#7a8ba0'">On The Air</a>
+          <a href="/about" style="color: #7a8ba0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.15s;"
+            onmouseover="this.style.color='#d4dbe8'" onmouseout="this.style.color='#7a8ba0'">About</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer style="background-color: #161b24; border-top: 1px solid #2a3347; margin-top: 5rem; padding: 2rem 1.5rem;">
+      <div style="max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div style="font-family: monospace; color: #4a5668; font-size: 0.85rem;">
+          KH7AL · Allen Le Vie · Helena, MT
+        </div>
+        <div style="color: #4a5668; font-size: 0.8rem;">
+          73 de KH7AL
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
