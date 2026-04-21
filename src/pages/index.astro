@@ -10,9 +10,23 @@ const recentPosts = allPosts
 
 const wakeIslandCount = allPosts.filter(p => p.data.categories.includes('wake-island')).length;
 const sotaCount = allPosts.filter(p => p.data.categories.includes('sota')).length;
+
+// ── HERO PHOTO ─────────────────────────────────────────────────────────────
+// Drop your photo into public/ and set the filename here, e.g. '/hero.jpg'
+const HERO_IMAGE = '';   // leave empty to show no hero photo
+// ───────────────────────────────────────────────────────────────────────────
 ---
 
 <Base title="KH7AL — Ham Radio from the Field" description="Ham radio adventures from Allen Le Vie (KH7AL). SOTA activations in Montana, the KH7AL/KH9 Wake Island operation, and general ham radio.">
+  <!-- Hero photo -->
+  {HERO_IMAGE && (
+    <div style="width: 100%; max-height: 480px; overflow: hidden; position: relative;">
+      <img src={HERO_IMAGE} alt="KH7AL hero"
+        style="width: 100%; height: 480px; object-fit: cover; object-position: center 40%; display: block;" />
+      <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, #0e1117 100%);"></div>
+    </div>
+  )}
+
   <!-- Hero -->
   <section style="max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem 3rem;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">

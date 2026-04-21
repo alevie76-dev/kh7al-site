@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Links" description="Favorite ham radio resources from KH7AL — SOTA, mapping, APRS, Morse code, and more.">
+  <div style="max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem;">
+    <h1 style="font-size: 1.75rem; font-weight: 700; color: #f0f4ff; margin: 0 0 0.5rem;">Links</h1>
+    <p style="color: #7a8ba0; margin: 0 0 2.5rem; font-size: 0.9rem;">Favorite sites and resources I find useful.</p>
+
+    {[
+      {
+        label: 'Summits On The Air',
+        links: [
+          { name: 'SOTA', url: 'https://www.sota.org.uk/' },
+          { name: 'SOTA Database', url: 'https://www.sotadata.org.uk/en/' },
+          { name: 'SOTAwatch3', url: 'https://sotawatch.sota.org.uk/en/' },
+          { name: 'NASOTA.io', url: 'https://nasota.groups.io/g/main' },
+          { name: 'SOTAmaps', url: 'https://www.sotamaps.org/' },
+        ]
+      },
+      {
+        label: 'Mapping',
+        links: [
+          { name: 'Lists Of John', url: 'https://listsofjohn.com/' },
+          { name: 'OnX Maps', url: 'https://webmap.onxmaps.com/' },
+          { name: 'CalTopo', url: 'https://caltopo.com/' },
+        ]
+      },
+      {
+        label: 'APRS',
+        links: [
+          { name: 'APRS.fi', url: 'http://aprs.fi' },
+          { name: 'APRS2SOTA', url: 'https://www.sotaspots.co.uk/Aprs2Sota_Info.php?page_id=1' },
+        ]
+      },
+      {
+        label: 'Learn Morse Code',
+        links: [
+          { name: 'CW Ops', url: 'https://cwops.org/' },
+          { name: 'SKCC', url: 'https://www.skccgroup.com/' },
+          { name: 'LCWO', url: 'https://lcwo.net/main' },
+        ]
+      },
+      {
+        label: 'Licensing',
+        links: [
+          { name: 'HamStudy.org', url: 'https://hamstudy.org/' },
+          { name: 'ARRL Getting Licensed', url: 'https://www.arrl.org/getting-licensed' },
+          { name: 'QRZ Practice Exams', url: 'https://www.qrz.com/hamtest/' },
+        ]
+      },
+      {
+        label: 'KH7AL',
+        links: [
+          { name: 'Original KH7AL Blogger Archive', url: 'https://kh7al.blogspot.com/' },
+          { name: 'QRZ Profile', url: 'https://www.qrz.com/db/KH7AL' },
+        ]
+      },
+    ].map(section => (
+      <div style="margin-bottom: 2rem;">
+        <div style="font-family: monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #e8a020; margin-bottom: 0.75rem;">{section.label}</div>
+        <div style="background: #161b24; border: 1px solid #2a3347; border-radius: 8px; overflow: hidden;">
+          {section.links.map((link, i) => (
+            <a href={link.url} target="_blank" rel="noopener noreferrer"
+              style={`display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 1.25rem; text-decoration: none; color: #d4dbe8; font-size: 0.9rem; ${i > 0 ? 'border-top: 1px solid #2a3347;' : ''}`}
+              onmouseover="this.style.background='#1e2635'" onmouseout="this.style.background='transparent'">
+              <span>{link.name}</span>
+              <span style="color: #4a5668; font-size: 0.75rem; font-family: monospace;">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</Base>
