@@ -1,0 +1,49 @@
+backend:
+  name: github
+  repo: alevie76-dev/kh7al-site
+  branch: main
+  base_url: https://kh7al.site
+  auth_endpoint: api/auth
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: blog
+    label: Blog Posts
+    folder: src/content/blog
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - label: Date
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        default: ""
+      - label: Categories
+        name: categories
+        widget: select
+        multiple: true
+        options:
+          - { label: SOTA, value: sota }
+          - { label: General Ham, value: general-ham }
+          - { label: Wake Island, value: wake-island }
+          - { label: Uncategorized, value: uncategorized }
+        default: [uncategorized]
+      - label: Tags
+        name: tags
+        widget: list
+        default: []
+      - label: Hero Image
+        name: heroImage
+        widget: image
+        required: false
+        allow_multiple: false
+      - label: Excerpt
+        name: excerpt
+        widget: text
+        required: false
+        default: ""
+      - { label: Body, name: body, widget: markdown }
