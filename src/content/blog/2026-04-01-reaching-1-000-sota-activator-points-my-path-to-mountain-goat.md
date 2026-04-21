@@ -11,8 +11,6 @@ excerpt: After more than 12 years of persistence, I finally reached 1,000
   This wasn’t a sprint—it was a long, rewarding path shaped by family, fellow
   hams, and countless summits along the way.
 ---
-\----
-
 I am not afraid of hard work. I actually enjoy it. Not that I go looking for hard things to do—I just don’t avoid them if they’re needed to reach a goal I’m after.
 
 Reaching 1,000 activator points under Summits On The Air (SOTA) is different from taking on a single hard task. It takes persistence, commitment, resolve, and focus. While some hams are able to knock out the achievement and gain the coveted SOTA Goat status, I took a longer path. I recall hitting those hundred-point milestones—200, 400, 500 points. Those seemed to just appear. The last 500 took some doing. But here in the early part of 2026, I found myself at the threshold of 1,000 points, thanks in part to over 200 winter bonus points earned along the way.
@@ -32,6 +30,5 @@ SOTA, to me, embodies the heart of ham radio. It is community, adventure, techni
 Here’s to the next 1,000 points. I’m on the path, and the view to that next summit looks amazing.
 
 73 and Baaaaaa,
-
 
 Allen ~ KH7AL
