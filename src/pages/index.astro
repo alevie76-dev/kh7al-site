@@ -1,89 +1,175 @@
 ---
-import Base from '../layouts/Base.astro';
-import PostCard from '../components/PostCard.astro';
-import { getCollection } from 'astro:content';
+import Base from "../layouts/Base.astro";
+import PostCard from "../components/PostCard.astro";
+import { getCollection } from "astro:content";
 
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection("blog");
 const recentPosts = allPosts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 6);
 
-const wakeIslandCount = allPosts.filter(p => p.data.categories.includes('wake-island')).length;
-const sotaCount = allPosts.filter(p => p.data.categories.includes('sota')).length;
+const wakeIslandCount = allPosts.filter((p) =>
+  p.data.categories.includes("wake-island"),
+).length;
+const sotaCount = allPosts.filter((p) =>
+  p.data.categories.includes("sota"),
+).length;
 
 // ── HERO PHOTO ─────────────────────────────────────────────────────────────
 // Drop your photo into public/ and set the filename here, e.g. '/hero.jpg'
-const HERO_IMAGE = '';   // leave empty to show no hero photo
+const HERO_IMAGE = "/hero.jpg"; // leave empty to show no hero photo
 // ───────────────────────────────────────────────────────────────────────────
 ---
 
-<Base title="KH7AL — Ham Radio from the Field" description="Ham radio adventures from Allen Le Vie (KH7AL). SOTA activations in Montana, the KH7AL/KH9 Wake Island operation, and general ham radio.">
+<Base
+  title="KH7AL — Ham Radio from the Field"
+  description="Ham radio adventures from Allen Le Vie (KH7AL). SOTA activations in Montana, the KH7AL/KH9 Wake Island operation, and general ham radio."
+>
   <!-- Hero photo -->
-  {HERO_IMAGE && (
-    <div style="width: 100%; max-height: 480px; overflow: hidden; position: relative;">
-      <img src={HERO_IMAGE} alt="KH7AL hero"
-        style="width: 100%; height: 480px; object-fit: cover; object-position: center 40%; display: block;" />
-      <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, #0e1117 100%);"></div>
-    </div>
-  )}
+  {
+    HERO_IMAGE && (
+      <div style="width: 100%; max-height: 480px; overflow: hidden; position: relative;">
+        <img
+          src={HERO_IMAGE}
+          alt="KH7AL hero"
+          style="width: 100%; height: 480px; object-fit: cover; object-position: center 40%; display: block;"
+        />
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, #0e1117 100%);" />
+      </div>
+    )
+  }
 
   <!-- Hero -->
-  <section style="max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem 3rem;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+  <section
+    style="max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem 3rem;"
+  >
+    <div
+      style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;"
+    >
       <div>
-        <div style="font-family: monospace; font-size: 0.8rem; color: #e8a020; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">
+        <div
+          style="font-family: monospace; font-size: 0.8rem; color: #e8a020; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;"
+        >
           KH7AL · Allen Le Vie
         </div>
-        <h1 style="font-size: 2.5rem; font-weight: 700; line-height: 1.2; color: #f0f4ff; margin: 0 0 1.25rem;">
-          Ham Radio<br/>from the Field
+        <h1
+          style="font-size: 2.5rem; font-weight: 700; line-height: 1.2; color: #f0f4ff; margin: 0 0 1.25rem;"
+        >
+          Ham Radio<br />from the Field
         </h1>
-        <p style="font-size: 1.05rem; color: #7a8ba0; line-height: 1.75; margin: 0 0 2rem;">
-          SOTA activations in the Montana mountains. A full assignment on Wake Island as KH7AL/KH9 &mdash; over 20,000 contacts from one of the most sought-after DXCC entities. Field radio the way it should be.
+        <p
+          style="font-size: 1.05rem; color: #7a8ba0; line-height: 1.75; margin: 0 0 2rem;"
+        >
+          SOTA activations in the Montana mountains. A full assignment on Wake
+          Island as KH7AL/KH9 &mdash; over 20,000 contacts from one of the most
+          sought-after DXCC entities. Field radio the way it should be.
         </p>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <a href="/blog" style="background-color: #e8a020; color: #0e1117; padding: 0.6rem 1.4rem; border-radius: 5px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+          <a
+            href="/blog"
+            style="background-color: #e8a020; color: #0e1117; padding: 0.6rem 1.4rem; border-radius: 5px; font-weight: 600; font-size: 0.9rem; text-decoration: none;"
+          >
             Read the Log
           </a>
-          <a href="/wake-island" style="background-color: transparent; color: #e8a020; border: 1px solid #e8a020; padding: 0.6rem 1.4rem; border-radius: 5px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+          <a
+            href="/wake-island"
+            style="background-color: transparent; color: #e8a020; border: 1px solid #e8a020; padding: 0.6rem 1.4rem; border-radius: 5px; font-weight: 600; font-size: 0.9rem; text-decoration: none;"
+          >
             Wake Island Story
           </a>
         </div>
       </div>
       <!-- Stats panel -->
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-        <div style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; padding: 1.5rem; text-align: center;">
-          <div style="font-size: 2rem; font-weight: 700; color: #e8a020; font-family: monospace;">20K+</div>
-          <div style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;">Wake Island QSOs</div>
+        <div
+          style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; padding: 1.5rem; text-align: center;"
+        >
+          <div
+            style="font-size: 2rem; font-weight: 700; color: #e8a020; font-family: monospace;"
+          >
+            20K+
+          </div>
+          <div
+            style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;"
+          >
+            Wake Island QSOs
+          </div>
         </div>
-        <div style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; padding: 1.5rem; text-align: center;">
-          <div style="font-size: 2rem; font-weight: 700; color: #3aaa6a; font-family: monospace;">{sotaCount}+</div>
-          <div style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;">SOTA Activations</div>
+        <div
+          style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; padding: 1.5rem; text-align: center;"
+        >
+          <div
+            style="font-size: 2rem; font-weight: 700; color: #3aaa6a; font-family: monospace;"
+          >
+            {sotaCount}+
+          </div>
+          <div
+            style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;"
+          >
+            SOTA Activations
+          </div>
         </div>
-        <div style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; padding: 1.5rem; text-align: center;">
-          <div style="font-size: 2rem; font-weight: 700; color: #5b8ecf; font-family: monospace;">KH9</div>
-          <div style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;">DXCC Entity</div>
+        <div
+          style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; padding: 1.5rem; text-align: center;"
+        >
+          <div
+            style="font-size: 2rem; font-weight: 700; color: #5b8ecf; font-family: monospace;"
+          >
+            KH9
+          </div>
+          <div
+            style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;"
+          >
+            DXCC Entity
+          </div>
         </div>
-        <div style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; padding: 1.5rem; text-align: center;">
-          <div style="font-size: 2rem; font-weight: 700; color: #d4dbe8; font-family: monospace;">{allPosts.length}</div>
-          <div style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;">Log Entries</div>
+        <div
+          style="background-color: #161b24; border: 1px solid #2a3347; border-radius: 8px; padding: 1.5rem; text-align: center;"
+        >
+          <div
+            style="font-size: 2rem; font-weight: 700; color: #d4dbe8; font-family: monospace;"
+          >
+            {allPosts.length}
+          </div>
+          <div
+            style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;"
+          >
+            Log Entries
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Category nav strip -->
-  <section style="background-color: #161b24; border-top: 1px solid #2a3347; border-bottom: 1px solid #2a3347;">
-    <div style="max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-      <a href="/wake-island" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #1e2635; border: 1px solid #2a3347; border-radius: 5px; padding: 0.4rem 0.85rem; color: #e8a020; font-size: 0.82rem; font-weight: 600; text-decoration: none; font-family: monospace; text-transform: uppercase; letter-spacing: 0.06em;">
+  <section
+    style="background-color: #161b24; border-top: 1px solid #2a3347; border-bottom: 1px solid #2a3347;"
+  >
+    <div
+      style="max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;"
+    >
+      <a
+        href="/wake-island"
+        style="display: inline-flex; align-items: center; gap: 0.5rem; background: #1e2635; border: 1px solid #2a3347; border-radius: 5px; padding: 0.4rem 0.85rem; color: #e8a020; font-size: 0.82rem; font-weight: 600; text-decoration: none; font-family: monospace; text-transform: uppercase; letter-spacing: 0.06em;"
+      >
         ◉ Wake Island
       </a>
-      <a href="/sota" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #1e2635; border: 1px solid #2a3347; border-radius: 5px; padding: 0.4rem 0.85rem; color: #3aaa6a; font-size: 0.82rem; font-weight: 600; text-decoration: none; font-family: monospace; text-transform: uppercase; letter-spacing: 0.06em;">
+      <a
+        href="/sota"
+        style="display: inline-flex; align-items: center; gap: 0.5rem; background: #1e2635; border: 1px solid #2a3347; border-radius: 5px; padding: 0.4rem 0.85rem; color: #3aaa6a; font-size: 0.82rem; font-weight: 600; text-decoration: none; font-family: monospace; text-transform: uppercase; letter-spacing: 0.06em;"
+      >
         ◉ SOTA
       </a>
-      <a href="/blog?cat=general-ham" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #1e2635; border: 1px solid #2a3347; border-radius: 5px; padding: 0.4rem 0.85rem; color: #5b8ecf; font-size: 0.82rem; font-weight: 600; text-decoration: none; font-family: monospace; text-transform: uppercase; letter-spacing: 0.06em;">
+      <a
+        href="/blog?cat=general-ham"
+        style="display: inline-flex; align-items: center; gap: 0.5rem; background: #1e2635; border: 1px solid #2a3347; border-radius: 5px; padding: 0.4rem 0.85rem; color: #5b8ecf; font-size: 0.82rem; font-weight: 600; text-decoration: none; font-family: monospace; text-transform: uppercase; letter-spacing: 0.06em;"
+      >
         ◉ General Ham
       </a>
-      <a href="/on-the-air" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #1e2635; border: 1px solid #2a3347; border-radius: 5px; padding: 0.4rem 0.85rem; color: #7a8ba0; font-size: 0.82rem; font-weight: 600; text-decoration: none; font-family: monospace; text-transform: uppercase; letter-spacing: 0.06em;">
+      <a
+        href="/on-the-air"
+        style="display: inline-flex; align-items: center; gap: 0.5rem; background: #1e2635; border: 1px solid #2a3347; border-radius: 5px; padding: 0.4rem 0.85rem; color: #7a8ba0; font-size: 0.82rem; font-weight: 600; text-decoration: none; font-family: monospace; text-transform: uppercase; letter-spacing: 0.06em;"
+      >
         ◉ On The Air
       </a>
     </div>
@@ -91,21 +177,35 @@ const HERO_IMAGE = '';   // leave empty to show no hero photo
 
   <!-- Recent posts -->
   <section style="max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem;">
-    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.75rem;">
-      <h2 style="font-size: 1.1rem; font-weight: 600; color: #f0f4ff; margin: 0; text-transform: uppercase; letter-spacing: 0.06em;">Recent Entries</h2>
-      <a href="/blog" style="font-size: 0.82rem; color: #e8a020; text-decoration: none; font-family: monospace;">View all →</a>
+    <div
+      style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.75rem;"
+    >
+      <h2
+        style="font-size: 1.1rem; font-weight: 600; color: #f0f4ff; margin: 0; text-transform: uppercase; letter-spacing: 0.06em;"
+      >
+        Recent Entries
+      </h2>
+      <a
+        href="/blog"
+        style="font-size: 0.82rem; color: #e8a020; text-decoration: none; font-family: monospace;"
+        >View all →</a
+      >
     </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;">
-      {recentPosts.map(post => (
-        <PostCard
-          title={post.data.title}
-          date={post.data.date}
-          slug={post.id}
-          categories={post.data.categories}
-          excerpt={post.data.excerpt || ''}
-          heroImage={post.data.heroImage}
-        />
-      ))}
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;"
+    >
+      {
+        recentPosts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            date={post.data.date}
+            slug={post.id}
+            categories={post.data.categories}
+            excerpt={post.data.excerpt || ""}
+            heroImage={post.data.heroImage}
+          />
+        ))
+      }
     </div>
   </section>
 </Base>
