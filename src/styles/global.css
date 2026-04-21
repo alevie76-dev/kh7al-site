@@ -121,23 +121,57 @@ body {
 
 /* ── Responsive layout ────────────────────────────────────────── */
 
-/* Hero photo */
+/* Hero slideshow */
 .hero-photo-wrap {
   width: 100%;
-  max-height: 480px;
+  height: 480px;
   overflow: hidden;
   position: relative;
 }
 .hero-photo-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 480px;
+  height: 100%;
   object-fit: cover;
   object-position: center 40%;
   display: block;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+.hero-photo-img.active {
+  opacity: 1;
+}
+
+/* Dot indicators */
+.hero-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s;
+}
+.hero-dot.active {
+  background: rgba(255, 255, 255, 0.9);
+}
+.hero-dot:hover {
+  background: rgba(255, 255, 255, 0.65);
 }
 
 @media (max-width: 768px) {
-  .hero-photo-img {
+  .hero-photo-wrap {
     height: 240px;
   }
 }

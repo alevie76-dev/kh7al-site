@@ -15,26 +15,66 @@ const wakeIslandCount = allPosts.filter((p) =>
 
 const sota = await getSotaStats();
 
-// ── HERO PHOTO ─────────────────────────────────────────────────────────────
-// Drop your photo into public/ and set the filename here, e.g. '/hero.jpg'
-const HERO_IMAGE = "/hero.jpg"; // leave empty to show no hero photo
+// ── HERO PHOTOS ────────────────────────────────────────────────────────────
+// First image is also the OG/social-preview image (set in Base.astro).
+// Add or swap paths here to change what rotates in the hero slideshow.
+const HERO_IMAGES = [
+  { src: "/hero.jpg",                                              alt: "Mountain summit view with wildflowers" },
+  { src: "/KH7AL_GOAT.jpg",                                       alt: "SOTA activation on a Montana summit" },
+  { src: "/wp-content/2025/01/Hawaii-ridge-in-clouds.jpg",        alt: "Hawaii ridge disappearing into the clouds" },
+  { src: "/wp-content/2025/01/IMG_2564.jpeg",                     alt: "Winter SOTA activation with snowy peaks" },
+  { src: "/wp-content/2025/01/IMG_8362.jpeg",                     alt: "Sunset mountain SOTA activation" },
+];
 // ───────────────────────────────────────────────────────────────────────────
-//update just to note change from .JPG to .jpg of hero image name.
 ---
 
 <Base
   title="KH7AL — Ham Radio — Elevated"
   description="Ham radio adventures from Allen Le Vie (KH7AL). SOTA activations in Montana, the KH7AL/KH9 Wake Island operation, and general ham radio."
 >
-  <!-- Hero photo -->
-  {
-    HERO_IMAGE && (
-      <div class="hero-photo-wrap">
-        <img src={HERO_IMAGE} alt="KH7AL hero" class="hero-photo-img" />
-        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, #0e1117 100%);" />
-      </div>
-    )
-  }
+  <!-- Hero slideshow -->
+  <div class="hero-photo-wrap">
+    {HERO_IMAGES.map((img, i) => (
+      <img
+        src={img.src}
+        alt={img.alt}
+        class={`hero-photo-img hero-slide${i === 0 ? " active" : ""}`}
+      />
+    ))}
+    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, #0e1117 100%); pointer-events: none;" />
+    <!-- Dot indicators -->
+    <div class="hero-dots">
+      {HERO_IMAGES.map((_, i) => (
+        <button class={`hero-dot${i === 0 ? " active" : ""}`} aria-label={`Go to slide ${i + 1}`} data-index={i} />
+      ))}
+    </div>
+  </div>
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll<HTMLElement>(".hero-slide"));
+      const dots   = Array.from(document.querySelectorAll<HTMLElement>(".hero-dot"));
+      let current = 0;
+      let timer: ReturnType<typeof setInterval>;
+
+      function goTo(n: number) {
+        slides[current].classList.remove("active");
+        dots[current].classList.remove("active");
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add("active");
+        dots[current].classList.add("active");
+      }
+
+      timer = setInterval(() => goTo(current + 1), 7000);
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+          clearInterval(timer);
+          goTo(i);
+          timer = setInterval(() => goTo(current + 1), 7000);
+        });
+      });
+    })();
+  </script>
 
   <!-- Hero -->
   <section
