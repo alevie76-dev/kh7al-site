@@ -28,6 +28,8 @@
               folder: 'src/content/blog',
               create: true,
               slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+              summary: '{{date}} — {{title}}',
+              sortable_fields: ['date', 'title'],
               fields: [
                 { label: 'Title', name: 'title', widget: 'string' },
                 {
