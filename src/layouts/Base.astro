@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { getSotaStats } from '../lib/sota';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title: string;
@@ -99,5 +100,6 @@ const sota = await getSotaStats();
         </div>
       </div>
     </footer>
+    <Analytics />
   </body>
 </html>
