@@ -22,7 +22,7 @@ const HERO_IMAGES = [
   { src: "/hero.jpg",              alt: "Mountain summit view with wildflowers" },
   { src: "/KH7AL_GOAT.jpg",       alt: "SOTA activation on a Montana summit" },
   { src: "/hero-hawaii-ridge.jpg", alt: "Hawaii ridge disappearing into the clouds" },
-  { src: "/hero-winter-sota.jpg",  alt: "Winter SOTA activation with snowy peaks" },
+  { src: "/hero-winter-sota.jpg",  alt: "Winter SOTA activation with snowy peaks",  pos: "center 20%" },
   { src: "/hero-sunset-sota.jpg",  alt: "Sunset mountain SOTA activation" },
 ];
 // ───────────────────────────────────────────────────────────────────────────
@@ -39,6 +39,7 @@ const HERO_IMAGES = [
         src={img.src}
         alt={img.alt}
         class={`hero-photo-img hero-slide${i === 0 ? " active" : ""}`}
+        style={img.pos ? `object-position: ${img.pos}` : undefined}
       />
     ))}
     <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, #0e1117 100%); pointer-events: none;" />
