@@ -11,42 +11,42 @@ import Base from '../layouts/Base.astro';
       {
         label: 'Summits On The Air',
         links: [
-          { name: 'SOTA', url: 'https://www.sota.org.uk/' },
-          { name: 'SOTA Database', url: 'https://www.sotadata.org.uk/en/' },
-          { name: 'SOTAwatch3', url: 'https://sotawatch.sota.org.uk/en/' },
-          { name: 'NASOTA.io', url: 'https://nasota.groups.io/g/main' },
-          { name: 'SOTAmaps', url: 'https://www.sotamaps.org/' },
+          { name: 'SOTA', url: 'https://www.sota.org.uk/', desc: 'Official program home — rules, news, and summit database.' },
+          { name: 'SOTA Database', url: 'https://www.sotadata.org.uk/en/', desc: 'Log activations, track your summits, and browse activation history.' },
+          { name: 'SOTAwatch3', url: 'https://sotawatch.sota.org.uk/en/', desc: 'Real-time spotting board for activations in progress.' },
+          { name: 'NASOTA.io', url: 'https://nasota.groups.io/g/main', desc: 'North American SOTA community mailing list and discussion group.' },
+          { name: 'SOTAmaps', url: 'https://www.sotamaps.org/', desc: 'Interactive map showing all SOTA summits overlaid on topo.' },
         ]
       },
       {
         label: 'Mapping',
         links: [
-          { name: 'Lists Of John', url: 'https://listsofjohn.com/' },
-          { name: 'OnX Maps', url: 'https://webmap.onxmaps.com/' },
-          { name: 'CalTopo', url: 'https://caltopo.com/' },
+          { name: 'Lists Of John', url: 'https://listsofjohn.com/', desc: 'US peak lists with prominence rankings, routes, and elevation data.' },
+          { name: 'OnX Maps', url: 'https://webmap.onxmaps.com/', desc: 'Land ownership and topo layers for trip planning and route finding.' },
+          { name: 'CalTopo', url: 'https://caltopo.com/', desc: 'Custom topo map builder with terrain analysis tools for backcountry planning.' },
         ]
       },
       {
         label: 'APRS',
         links: [
-          { name: 'APRS.fi', url: 'http://aprs.fi' },
-          { name: 'APRS2SOTA', url: 'https://www.sotaspots.co.uk/Aprs2Sota_Info.php?page_id=1' },
+          { name: 'APRS.fi', url: 'http://aprs.fi', desc: 'Live worldwide APRS tracking map — stations, trails, and beacons.' },
+          { name: 'APRS2SOTA', url: 'https://www.sotaspots.co.uk/Aprs2Sota_Info.php?page_id=1', desc: 'Converts APRS beacon data into SOTA spots automatically during an activation.' },
         ]
       },
       {
         label: 'Learn Morse Code',
         links: [
-          { name: 'CW Ops', url: 'https://cwops.org/' },
-          { name: 'SKCC', url: 'https://www.skccgroup.com/' },
-          { name: 'LCWO', url: 'https://lcwo.net/main' },
+          { name: 'CW Ops', url: 'https://cwops.org/', desc: 'CW Academy training program for all skill levels, taught by experienced operators.' },
+          { name: 'SKCC', url: 'https://www.skccgroup.com/', desc: 'Straight Key Century Club — a club dedicated to mechanical key operating.' },
+          { name: 'LCWO', url: 'https://lcwo.net/main', desc: 'Browser-based Morse trainer using the proven Koch method.' },
         ]
       },
       {
         label: 'Licensing',
         links: [
-          { name: 'HamStudy.org', url: 'https://hamstudy.org/' },
-          { name: 'ARRL Getting Licensed', url: 'https://www.arrl.org/getting-licensed' },
-          { name: 'QRZ Practice Exams', url: 'https://www.qrz.com/hamtest/' },
+          { name: 'HamStudy.org', url: 'https://hamstudy.org/', desc: 'Adaptive flashcard study app for all three license classes.' },
+          { name: 'ARRL Getting Licensed', url: 'https://www.arrl.org/getting-licensed', desc: 'Official ARRL guide to the licensing process and finding an exam session.' },
+          { name: 'QRZ Practice Exams', url: 'https://www.qrz.com/hamtest/', desc: 'Full practice exams drawn from the actual FCC question pool.' },
         ]
       },
       {
@@ -64,8 +64,11 @@ import Base from '../layouts/Base.astro';
             <a href={link.url} target="_blank" rel="noopener noreferrer"
               style={`display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 1.25rem; text-decoration: none; color: #d4dbe8; font-size: 0.9rem; ${i > 0 ? 'border-top: 1px solid #2a3347;' : ''}`}
               onmouseover="this.style.background='#1e2635'" onmouseout="this.style.background='transparent'">
-              <span>{link.name}</span>
-              <span style="color: #4a5668; font-size: 0.75rem; font-family: monospace;">↗</span>
+              <span style="display: flex; flex-direction: column; gap: 0.15rem;">
+                <span>{link.name}</span>
+                {link.desc && <span style="font-size: 0.78rem; color: #4a5668; font-weight: 400;">{link.desc}</span>}
+              </span>
+              <span style="color: #4a5668; font-size: 0.75rem; font-family: monospace; flex-shrink: 0; margin-left: 1rem;">↗</span>
             </a>
           ))}
         </div>

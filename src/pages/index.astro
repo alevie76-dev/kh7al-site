@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
 import { getCollection } from "astro:content";
+import { getSotaStats } from "../lib/sota";
 
 const allPosts = await getCollection("blog");
 const recentPosts = allPosts
@@ -11,9 +12,8 @@ const recentPosts = allPosts
 const wakeIslandCount = allPosts.filter((p) =>
   p.data.categories.includes("wake-island"),
 ).length;
-const sotaCount = allPosts.filter((p) =>
-  p.data.categories.includes("sota"),
-).length;
+
+const sota = await getSotaStats();
 
 // ── HERO PHOTO ─────────────────────────────────────────────────────────────
 // Drop your photo into public/ and set the filename here, e.g. '/hero.jpg'
@@ -99,7 +99,7 @@ const HERO_IMAGE = "/hero.jpg"; // leave empty to show no hero photo
           <div
             style="font-size: 2rem; font-weight: 700; color: #3aaa6a; font-family: monospace;"
           >
-            {sotaCount}+
+            {sota ? sota.activations : "—"}
           </div>
           <div
             style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;"
@@ -132,7 +132,7 @@ const HERO_IMAGE = "/hero.jpg"; // leave empty to show no hero photo
           <div
             style="font-size: 0.8rem; color: #7a8ba0; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.06em;"
           >
-            Log Entries
+            Blog Entries
           </div>
         </div>
       </div>
