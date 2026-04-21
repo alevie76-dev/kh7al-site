@@ -23,3 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 kh7alsite.WordPress.2026-04-20.xml
+
+# WP source backup — only uploads/ is committed
+public/wp-content/2025/
+public/wp-content/2026/
+public/wp-content/wpforms/
