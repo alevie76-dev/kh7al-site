@@ -30,12 +30,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body style="background-color: #0e1117;">
-    <header style="background-color: #161b24; border-bottom: 1px solid #2a3347;">
+    <header style="background-color: #161b24; border-bottom: 1px solid #2a3347; position: relative;">
       <nav style="max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 60px;">
         <a href="/" style="font-size: 1.1rem; font-weight: 700; color: #e8a020; text-decoration: none; letter-spacing: 0.05em; font-family: monospace;">
           KH7AL
         </a>
-        <div style="display: flex; gap: 1.5rem; align-items: center;">
+        <button class="hamburger" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
           <a href="/blog" style="color: #7a8ba0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.15s;"
             onmouseover="this.style.color='#d4dbe8'" onmouseout="this.style.color='#7a8ba0'">Log</a>
           <a href="/sota" style="color: #7a8ba0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.15s;"
@@ -53,6 +56,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         </div>
       </nav>
     </header>
+    <script>
+      const toggle = document.getElementById('nav-toggle');
+      const links = document.getElementById('nav-links');
+      toggle?.addEventListener('click', () => {
+        const open = links?.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    </script>
 
     <main>
       <slot />
