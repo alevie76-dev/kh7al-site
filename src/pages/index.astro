@@ -19,6 +19,7 @@ const sotaCount = allPosts.filter((p) =>
 // Drop your photo into public/ and set the filename here, e.g. '/hero.jpg'
 const HERO_IMAGE = "/hero.jpg"; // leave empty to show no hero photo
 // ───────────────────────────────────────────────────────────────────────────
+//update just to note change from .JPG to .jpg of hero image name.
 ---
 
 <Base
@@ -29,11 +30,7 @@ const HERO_IMAGE = "/hero.jpg"; // leave empty to show no hero photo
   {
     HERO_IMAGE && (
       <div class="hero-photo-wrap">
-        <img
-          src={HERO_IMAGE}
-          alt="KH7AL hero"
-          class="hero-photo-img"
-        />
+        <img src={HERO_IMAGE} alt="KH7AL hero" class="hero-photo-img" />
         <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, #0e1117 100%);" />
       </div>
     )
