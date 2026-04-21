@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="5" fill="#161b24"/>
-  <rect x="15" y="4" width="2" height="10" rx="1" fill="#e8a020"/>
-  <ellipse cx="16" cy="18" rx="8" ry="4" fill="none" stroke="#e8a020" stroke-width="1.5"/>
-  <ellipse cx="16" cy="18" rx="5" ry="2.5" fill="none" stroke="#e8a020" stroke-width="1"/>
-  <circle cx="16" cy="18" r="1.5" fill="#e8a020"/>
-  <rect x="13" y="22" width="6" height="6" rx="1" fill="#1e2635" stroke="#2a3347" stroke-width="1"/>
-  <circle cx="16" cy="25" r="1.5" fill="#e8a020" opacity="0.7"/>
+  <!-- left peak -->
+  <polygon points="4,26 13,10 22,26" fill="none" stroke="#e8a020" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- right peak (taller, overlapping) -->
+  <polygon points="12,26 22,6 32,26" fill="#161b24" stroke="#e8a020" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- snow cap on right peak -->
+  <polygon points="22,6 18.5,14 25.5,14" fill="#e8a020"/>
 </svg>
